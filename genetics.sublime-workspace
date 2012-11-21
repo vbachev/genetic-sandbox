@@ -1,0 +1,584 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"back",
+				"background-attachment"
+			],
+			[
+				"bac",
+				"background"
+			],
+			[
+				"chr",
+				"christmas_game"
+			],
+			[
+				"marg",
+				"margin-bottom	zen:css_properties"
+			],
+			[
+				"snippe",
+				"snippetItems"
+			],
+			[
+				"backgr",
+				"background-size"
+			],
+			[
+				"text",
+				"text-indent"
+			],
+			[
+				"in",
+				"inline"
+			],
+			[
+				"bacl",
+				"background-color"
+			],
+			[
+				"lis",
+				"list-style"
+			],
+			[
+				"list-st",
+				"list-style-type"
+			],
+			[
+				"tabs",
+				"tabsMenuHtml"
+			],
+			[
+				"call_",
+				"call_user_func"
+			],
+			[
+				"for",
+				"for	for …"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 75.0,
+		"selected_items":
+		[
+			[
+				"forma",
+				"Format: Javascript"
+			],
+			[
+				"list pa",
+				"Package Control: List Packages"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"package",
+				"Package Control: List Packages"
+			],
+			[
+				"ftp",
+				"FTPSync: Upload current file"
+			],
+			[
+				"settings",
+				"Preferences: Settings - Default"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"bash",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"new fie",
+				"File: New File Relative to Current View"
+			],
+			[
+				"git:",
+				"Git: Gui"
+			],
+			[
+				"git lo",
+				"Git: Log Current File"
+			],
+			[
+				"git co",
+				"Git: Amend Commit"
+			],
+			[
+				"git comm",
+				"Git: Commit"
+			],
+			[
+				"git com",
+				"Git: Commit"
+			],
+			[
+				"commit",
+				"Git: Commit"
+			],
+			[
+				"git log",
+				"Git: Log Current File"
+			],
+			[
+				"package cont",
+				"Package Control: List Packages"
+			],
+			[
+				"package control: ",
+				"Package Control: Enable Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"packages",
+				"Package Control: Disable Package"
+			],
+			[
+				"create",
+				"Quick File Creator: Create file"
+			],
+			[
+				"instap",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"align",
+				"Preferences: Alignment Key Bindings – Default"
+			],
+			[
+				"task",
+				"Tasks: New document"
+			],
+			[
+				"package con",
+				"Package Control: Upgrade Package"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 358.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/tmp/fz3temp-1/earlySpring.css",
+		"/tmp/fz3temp-1/template.php",
+		"/tmp/fz3temp-1/functions.js",
+		"/tmp/fz3temp-1/christmas_game.tpl.php",
+		"/tmp/fz3temp-1/page.tpl.php",
+		"/home/vasil/Downloads/popups/popups.js",
+		"/home/vasil/Downloads/christmas_game.tpl.php",
+		"/home/vasil/.cache/.fr-aYfmgW/jquery-cookie-master/jquery.cookie.js",
+		"/home/vasil/.cache/.fr-P8XXX2/jquery-cookie-master/server.js",
+		"/home/vasil/work/flora/FloraJS/src/world.js",
+		"/home/vasil/work/flora/FloraJS/src/system.js",
+		"/home/vasil/work/flora/FloraJS/src/universe.js",
+		"/home/vasil/work/flora/FloraJS/build.xml",
+		"/home/vasil/work/flora/FloraJS/css/flora.css",
+		"/tmp/fz3temp-1/settings.php",
+		"/home/vasil/localhost/dev/sites/all/ftpsync.settings",
+		"/home/vasil/localhost/dev/sites/all/README.txt",
+		"/home/vasil/localhost/dev/sites/example.sites.php",
+		"/var/www/dev/sites/all/themes/adaptivetheme/midsummer/templates/node--author.tpl.php",
+		"/var/www/dev/sites/ftpsync.settings",
+		"/home/vasil/localhost/dev/sites/ftpsync.settings",
+		"/home/vasil/localhost/dev/sites/hello.txt",
+		"/var/www/dev/sites/all/themes/adaptivetheme/midsummer/css/hello.txt",
+		"/home/vasil/localhost/dev/sites/all/themes/adaptivetheme/midsummer/templates/ftpsync.settings",
+		"/var/www/dev/sites/all/themes/adaptivetheme/midsummer/templates/ftpsync.settings",
+		"/home/vasil/.config/sublime-text-2/Packages/Default/Preferences.sublime-settings",
+		"/media/Data/Dropbox/sitemanager.xml",
+		"/home/vasil/.config/sublime-text-2/Packages/FTPSync/ftpsync.sublime-settings",
+		"/home/vasil/.config/sublime-text-2/Packages/User/FTPSync.sublime-settings",
+		"/tmp/fz3temp-1/.htaccess",
+		"/home/vasil/localhost/dev/sites/all/themes/adaptivetheme/midsummer/template.php",
+		"/home/vasil/localhost/dev/sites/all/themes/adaptivetheme/midsummer/theme-settings.php",
+		"/var/www/dev/sites/all/themes/adaptivetheme/midsummer/midsummer.info",
+		"/home/vasil/localhost/dev/sites/.gitignore",
+		"/var/www/dev/.gitignore",
+		"/tmp/fz3temp-1/global.styles.css",
+		"/tmp/fz3temp-1/media_queries.js",
+		"/tmp/fz3temp-1/global.base.css",
+		"/tmp/fz3temp-1/shoptheme.info",
+		"/var/www/dev/sites/all/themes/midsummer/midsummer.info",
+		"/tmp/fz3temp-1/shopTheme.info",
+		"/var/www/dev/sites/all/themes/adaptivetheme/midsummer/templates/node--book.tpl.php",
+		"/home/vasil/localhost/dev/sites/all/themes/adaptivetheme/midsummer/templates/node--quote.tpl.php",
+		"/home/vasil/chetime.TODO",
+		"/var/www/dev/sites/all/themes/adaptivetheme/midsummer/css/global.styles.less",
+		"/var/www/dev/sites/all/modules/colorbox/colorbox.module",
+		"/home/vasil/localhost/index.php",
+		"/var/www/dev/.htaccess",
+		"/home/vasil/.config/sublime-text-2/Packages/Default/Default (Linux).sublime-keymap",
+		"/home/vasil/.config/sublime-text-2/Packages/User/Default (Linux).sublime-keymap",
+		"/var/www/dev/adwawd.css",
+		"/media/Data/_work/chetime/d7/TASKS",
+		"/home/vasil/.config/sublime-text-2/Packages/Alignment/Default (Linux).sublime-keymap",
+		"/usr/lib/Sublime Text 2/PackageSetup.py",
+		"/home/vasil/.cache/.fr-J6lR3b/thes/README_th_bg_BG.txt",
+		"/home/vasil/Downloads/thes/th_bg_BG.dat",
+		"/tmp/fz3temp-1/node-book.tpl.php",
+		"/tmp/fz3temp-1/node-leksikon.tpl.php",
+		"/tmp/fz3temp-1/node-contest.tpl.php",
+		"/tmp/fz3temp-1/node.tpl.php",
+		"/home/vasil/powertop.log",
+		"/var/www/dev/sites/all/themes/adaptivetheme/midsummer/templates/block.tpl.php",
+		"/var/www/dev/sites/all/themes/adaptivetheme/at_core/templates/aggregator-item.tpl.php",
+		"/home/vasil/chetime-2-d7.sublime-project",
+		"/home/vasil/localhost/dev/sites/all/themes/adaptivetheme/midsummer/templates/page.tpl.php",
+		"/home/vasil/localhost/dev/sites/all/themes/adaptivetheme/midsummer/templates/node--author.tpl.php",
+		"/home/vasil/localhost/dev/sites/all/themes/adaptivetheme/midsummer/templates/node--book.tpl.php",
+		"/home/vasil/localhost/dev/sites/all/themes/adaptivetheme/midsummer/css/global.styles.less",
+		"/tmp/fz3temp-1/node--book.tpl.php",
+		"/tmp/fz3temp-1/node--author.tpl.php",
+		"/usr/share/applications/defaults.list",
+		"/usr/share/applications/sublime.desktop",
+		"/home/vasil/localhost/dev/.htaccess",
+		"/tmp/fz3temp-1/global.styles.less",
+		"/tmp/fz3temp-1/node--author_.tpl.php",
+		"/tmp/fz3temp-1/quicktabs.api.php",
+		"/tmp/fz3temp-1/quicktabs.install",
+		"/tmp/fz3temp-1/QuickCallbackContent.inc",
+		"/tmp/fz3temp-1/quicktabs.module",
+		"/tmp/fz3temp-1/quicktabs.classes.inc",
+		"/tmp/fz3temp-1/comment-wrapper.tpl.php",
+		"/tmp/fz3temp-1/midsummer.info",
+		"/tmp/fz3temp-1/page.tpl 2.php",
+		"/tmp/fz3temp-1/author--node.tpl.php"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"click",
+			"scrip",
+			"scro",
+			".js",
+			"margin-bottom: 2",
+			"margin-bottom: 2-",
+			"teaser-th",
+			"node-tease",
+			".pic",
+			".fra",
+			"@bord",
+			"@bo",
+			"@fr",
+			"@pi",
+			"@im",
+			"thumbnail",
+			".nav ul",
+			"white",
+			"branding",
+			"header-w",
+			"content-wra",
+			"ul.menu li a",
+			"brandi",
+			"afterstep",
+			"afterster",
+			"afterStep",
+			".nav ul",
+			"ul.menu li a",
+			"ul.menu li a.link",
+			"@ash-green-dark",
+			".nav li a",
+			"tasks",
+			".tabs",
+			"@green",
+			"tabContent",
+			"user_profile",
+			"☐",
+			"  ",
+			"images",
+			"]);",
+			"green-bright",
+			"ini_set('m",
+			"limi",
+			"memo",
+			"21",
+			"port",
+			"snippet",
+			"figure",
+			"sidebar",
+			"colorbox_get_path",
+			"COLORBOX_PATH",
+			"id_dir",
+			"COLORBOX_PATH",
+			"path",
+			"txtQuote",
+			"position",
+			"bol",
+			"bok",
+			"bol\nbol",
+			"bol\n",
+			"bol",
+			"ctrl+left",
+			"alt+left",
+			"line",
+			"+n",
+			"print",
+			"t(",
+			"rgba(0, 0, 0, 0.65) 99%,",
+			".border-radius",
+			"border-radius",
+			"rounded",
+			"user-picture",
+			":before",
+			":after",
+			"0,0,0,0",
+			"#ffffff",
+			"hr",
+			"field_leksikon_photo",
+			"leksik",
+			"contest",
+			".box-shadow(",
+			"image.autho",
+			"image.author",
+			"image.book",
+			"node->type",
+			"gedit.desktop",
+			"rounded",
+			"after",
+			"after\nafter",
+			"image-frame-big",
+			"-20",
+			"submitted",
+			"$title",
+			".transition",
+			"@gree",
+			"text-shadow",
+			".box-shadow",
+			";\n",
+			"h1",
+			"cover-",
+			"-aside",
+			"rounded",
+			".rounded",
+			"rounded",
+			"corners",
+			"rounded",
+			"tabbed",
+			"primary",
+			"'tabs'",
+			">tabs",
+			">ty",
+			"alter",
+			"\n",
+			"load",
+			"options",
+			"quicktabs",
+			"quicktabs_contents",
+			"hook",
+			"quicktabs_ajax",
+			"quickse",
+			"quicktabs_build_quicktabs",
+			"renderable_qt",
+			">render",
+			"render",
+			".render",
+			"qt_quicktabs",
+			"theme_qt_quicktabs",
+			"quicktabs_build_quicktabs"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"",
+			"rgba(0,0,0,0)",
+			"image.book-cover",
+			"sublime.desktop"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.git":
+	{
+		"height": 112.0
+	},
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"midsummen",
+				"sites/all/themes/adaptivetheme/midsummer/midsummer.info"
+			],
+			[
+				"midsuautho",
+				"sites/all/themes/adaptivetheme/midsummer/templates/node--author.tpl.php"
+			],
+			[
+				"midsupage.tp",
+				"sites/all/themes/adaptivetheme/midsummer/templates/page.tpl.php"
+			],
+			[
+				"midsumeuserprofi",
+				"sites/all/themes/adaptivetheme/midsummer/templates/user-profile.tpl.php"
+			],
+			[
+				"ftpsync",
+				"sites/ftpsync.settings"
+			],
+			[
+				"adaptmidsumme",
+				"sites/all/themes/adaptivetheme/midsummer/midsummer.info"
+			],
+			[
+				"node--boo",
+				"sites/all/themes/adaptivetheme/midsummer/templates/node--book.tpl.php"
+			],
+			[
+				".gitigno",
+				".gitignore"
+			],
+			[
+				"adaptimidsu",
+				"sites/all/themes/adaptivetheme/midsummer/midsummer.info"
+			],
+			[
+				"midsumme",
+				"sites/all/themes/midsummer/midsummer.info"
+			],
+			[
+				"nodeauthor",
+				"sites/all/themes/adaptivetheme/midsummer/templates/node--author.tpl.php"
+			],
+			[
+				"midsumglobal",
+				"sites/all/themes/adaptivetheme/midsummer/css/global.styles.less"
+			],
+			[
+				".hta",
+				".htaccess"
+			],
+			[
+				"colorbox",
+				"sites/all/modules/colorbox/colorbox.module"
+			],
+			[
+				"global.styles.le",
+				"sites/all/themes/adaptivetheme/midsummer/css/global.styles.less"
+			],
+			[
+				"global.sty",
+				"sites/all/themes/adaptivetheme/midsummer/css/global.styles.less"
+			],
+			[
+				"nodebook",
+				"sites/all/themes/adaptivetheme/midsummer/templates/node--book.tpl.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 276.0,
+	"status_bar_visible": true
+}

@@ -1,0 +1,20 @@
+#cells{
+  padding: 0;
+  width: 600px;
+  height: 600px;
+  list-style-type: none;
+}
+#cells li{
+  float:left;
+  margin: 5px;
+  width: 1.5em;
+  height: 1.5em;
+  background: green;
+  border-radius: 50%;
+  -webkit-transition: .5s;
+}
+#cells li.dead{
+  position: absolute;
+  opacity: 0;
+  top: -50px;
+}
