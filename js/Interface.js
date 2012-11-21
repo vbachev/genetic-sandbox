@@ -1,11 +1,11 @@
 var Interface =
 {
-  // subscribe for beat updates
-  id : World.register( this ),
-
-  // must initialize after document is ready to be able 
-  // to detect this dom node
   initialize : function(){
+    // subscribe for beat updates
+    this.id = World.register( this );
+    
+    // must initialize after document is ready to be able 
+    // to detect this dom node
     this.cellsList = $('#cells');
   },
   
