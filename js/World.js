@@ -1,41 +1,41 @@
-// kind of a singleton
+// handles object coordination and synchronisation
+// implements simple pub/sub observer pattern
 var World = 
 {
-  beatSpeed : 500,
-  handbrake : true, // will stop heartbeat at next beat
+  beatDelay : 500,  // world speed
+  brake : true,     // will stop heartbeat at next beat
 
   idPointer : 0,
   subscribers : [], // holds all subscribers
 
-  // will move to cell manager object
-  familyTree : [], // will hold information on all cells
-
   // starts heartbeat
   start : function()
   {
-    console.log('world started turning');
-    this.handbrake = false;
+    console.log('world started');
+    this.brake = false;
     this.heartbeat();
   },
 
   // stops hartbeat
   stop : function()
   {
-    this.handbrake = true;
-    console.log('world stopped turning');
+    this.brake = true;
+    console.log('world stopped');
   },
 
   // handles the continuous beating
   heartbeat : function(){
-    if( World.handbrake ){
+    if( World.brake ){
       return false;
     }
 
     World.beat();
 
+    // settimeout instead of setinterval so very short intervals are handled better 
+    // + the ability to change beatDelay in realtime
     setTimeout(
       World.heartbeat,
-      World.beatSpeed
+      World.beatDelay
     );
   },
 
@@ -68,7 +68,7 @@ var World =
     subscriber;
 
     for( i in this.subscribers ){
-      subscriber = subscribers[i];
+      subscriber = this.subscribers[i];
       if( a_id === subscriber.id ){
         // remove item from array
         this.subscribers.splice( i, 1 );
@@ -77,21 +77,5 @@ var World =
     }
     
     return false;
-  },
-
-  // will move to cell manager object
-  recordNewCell : function( a_cell )
-  {
-    this.familyTree.push( a_cell );
-  },
-
-  // will move to environment manager object
-  // describes the environment - just a prototype
-  getEnvironment : function()
-  {
-    return {
-      food : 5,
-      heat : 0
-    };
   }
 };

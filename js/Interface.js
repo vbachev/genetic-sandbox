@@ -1,3 +1,4 @@
+// handles display and DOM manipulation functionality
 var Interface =
 {
   initialize : function(){
@@ -12,7 +13,7 @@ var Interface =
   // at each beat go through all cells and draw them
   update : function()
   {
-    var cells = World.familyTree,
+    var cells = CellManager.registry,
     i, cell, node,
     toAppend = '',
     modifier = 0;
@@ -36,7 +37,7 @@ var Interface =
       } else {
         toAppend += '<li id="cell'+cell.id+'" style="font-size:'+modifier+'px"></li>';
       }
-    },
+    }
     
     // add new items to list
     this.cellsList.append( toAppend );
