@@ -4,6 +4,38 @@
 		"selected_items":
 		[
 			[
+				"pare",
+				"parentId"
+			],
+			[
+				"a_",
+				"a_message"
+			],
+			[
+				"da",
+				"daughterB"
+			],
+			[
+				"heal",
+				"health"
+			],
+			[
+				"beat",
+				"beatSubscribers"
+			],
+			[
+				"ha",
+				"handbrake"
+			],
+			[
+				"re",
+				"registerCell"
+			],
+			[
+				"bea",
+				"beatSubscribers"
+			],
+			[
 				"back",
 				"background-attachment"
 			],
@@ -63,11 +95,27 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "ignore/genetics.sublime-project",
+			"settings":
+			{
+				"buffer_size": 69,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "ignore/genetics.sublime-workspace",
+			"settings":
+			{
+				"buffer_size": 30005,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 75.0,
+		"height": 201.0,
 		"selected_items":
 		[
 			[
@@ -196,9 +244,17 @@
 	},
 	"file_history":
 	[
+		"/home/vasil/work/genetics/genetics.css",
+		"/home/vasil/work/genetics/World.js",
+		"/home/vasil/work/genetics/index.html",
+		"/home/vasil/work/genetics/Cell.js",
+		"/home/vasil/work/genetics/genetics.js",
+		"/home/vasil/work/genetics/Interface.js",
+		"/home/vasil/work/genetics/world.js",
+		"/tmp/fz3temp-1/functions.js",
+		"/home/vasil/work/game_of_life/index.html",
 		"/tmp/fz3temp-1/earlySpring.css",
 		"/tmp/fz3temp-1/template.php",
-		"/tmp/fz3temp-1/functions.js",
 		"/tmp/fz3temp-1/christmas_game.tpl.php",
 		"/tmp/fz3temp-1/page.tpl.php",
 		"/home/vasil/Downloads/popups/popups.js",
@@ -297,6 +353,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"food",
+			"checkCookie",
+			":",
+			",",
+			"a_cell",
 			"click",
 			"scrip",
 			"scro",
@@ -419,12 +480,7 @@
 			"quickse",
 			"quicktabs_build_quicktabs",
 			"renderable_qt",
-			">render",
-			"render",
-			".render",
-			"qt_quicktabs",
-			"theme_qt_quicktabs",
-			"quicktabs_build_quicktabs"
+			">render"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -432,6 +488,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"this",
 			"",
 			"rgba(0,0,0,0)",
 			"image.book-cover",
@@ -446,8 +503,238 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "ignore/genetics.sublime-project",
+					"settings":
+					{
+						"buffer_size": 69,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								15,
+								17
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "ignore/genetics.sublime-workspace",
+					"settings":
+					{
+						"buffer_size": 30005,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								42,
+								42
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110
+							],
+							"gjslint_options":
+							[
+							],
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -496,6 +783,10 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"wo",
+				"World.js"
+			],
 			[
 				"midsummen",
 				"sites/all/themes/adaptivetheme/midsummer/midsummer.info"
