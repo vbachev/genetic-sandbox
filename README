@@ -1,0 +1,3 @@
+Playing around with object oriented js and some patterns.
+Im trying to create a simulation of cells that live off of and interact within an environment. Cells will divide and inherit life stats and traits from each other. Mutation in cells will modify inner cell processes which in turn will simulate small-scale evolution :)
+More to come!
