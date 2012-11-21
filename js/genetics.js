@@ -17,10 +17,9 @@
     efficiency : 0  // life sustainability mod
   }
 };*/
-var i, cell;
 
 $(document).ready(function(){
-  cell = new Cell();
-  i = new Interface();
-  World.start();
+  Interface.initialize(); // bind interface to World and DOM
+  new Cell();             // create first (Eve) cell
+  World.start();          // start heartbeat
 });
