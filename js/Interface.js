@@ -25,6 +25,7 @@ var interface =
     toAppend = '',
     modifier = 0;
 
+    $('.newborn').removeClass('newborn');
     this.stats.cells = 0;
 
     for( i in cells ){
@@ -48,7 +49,7 @@ var interface =
       } else {
         //toAppend += '<li id="cell'+cell.id+'" style="font-size:'+modifier+'px"></li>';
         
-        $('#cell'+cell.parentId).append('<div id="cell'+cell.id+'" style="font-size:'+modifier+'px"></div>');
+        $('#cell'+cell.parentId).append('<div id="cell'+cell.id+'" class="newborn" style="font-size:'+modifier+'px"></div>');
       }
     }
     

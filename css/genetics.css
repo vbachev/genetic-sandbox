@@ -1,6 +1,6 @@
 *{
-  -webkit-transition: .5s;
-  transition: .5s;
+  -webkit-transition: .3s;
+  transition: .3s;
 }
 
 .stage .container{
@@ -99,4 +99,8 @@
 }
 #family-tree .dead:after{
   background: rgba(0,0,0,.5);
+}
+#family-tree div.newborn{
+  width:0;
+  height:0;
 }
