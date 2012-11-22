@@ -45,7 +45,7 @@
 
 #tree-wrapper{
   overflow: auto;
-  width: 2000px;
+  width: 800px;
   height: 400px;
   border: 1px solid #eee;
 }
@@ -58,6 +58,7 @@
   color: rgba(0,0,0,.2);
   font-size: 0;
   line-height: 0;
+  white-space: nowrap;
 }
 #family-tree div:hover{
   color: rgba(0,0,0,1);

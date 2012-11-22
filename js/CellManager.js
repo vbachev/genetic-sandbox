@@ -19,5 +19,27 @@ var cellManager =
   update : function()
   {
     return false;
+  },
+  
+  getGeneSet : function()
+  { 
+    return { 
+      metabolism : 1,
+      regeneration : 10
+      // others
+    };
+  },
+  
+  mutateGenes : function( a_genes )
+  {
+    var i, gene, newGenes = {};
+    
+    for( i in a_genes ){
+      gene = a_genes[i];
+      gene += Math.ceil(Math.random()*3) - 2; // (+1, 0 or -1)
+      newGenes[ i ] = gene;
+    }
+    
+    return newGenes;
   }
 };

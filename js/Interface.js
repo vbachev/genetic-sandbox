@@ -1,5 +1,5 @@
 // handles display and DOM manipulation functionality
-var interface =
+var uiManager =
 {
   initialize : function(){
     // subscribe for beat updates
