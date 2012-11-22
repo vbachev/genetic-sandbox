@@ -10,6 +10,12 @@ var Interface =
     this.cellsList = $('#cells');
   },
   
+  stats : {
+    cells : 0,
+    elapsed : 0,
+    food : 0
+  },
+
   // at each beat go through all cells and draw them
   update : function()
   {
@@ -18,6 +24,8 @@ var Interface =
     toAppend = '',
     modifier = 0;
 
+    this.stats.cells = 0;
+
     for( i in cells ){
       cell = cells[i];
       node = $('#cell'+cell.id);
@@ -25,6 +33,8 @@ var Interface =
       if( cell.alive ){
         // use the cell growth value as an indicator
         modifier = cell.growth;
+
+        this.stats.cells++;
       } else {
         node.addClass('dead');
         continue;
@@ -41,5 +51,12 @@ var Interface =
     
     // add new items to list
     this.cellsList.append( toAppend );
+    $('.dead').remove();
+
+    this.stats.elapsed++;
+    this.stats.food = CellManager.getEnvironment().food;
+
+    var message = 'step: '+this.stats.elapsed+'<br/>cells: '+this.stats.cells+'<br/>food: '+this.stats.food;
+    $('.message-box').html( message );
   }
 };

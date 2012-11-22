@@ -1,4 +1,4 @@
-// class describing a single cell
+// class describing a single cell 
 function Cell ( a_config ) 
 {
   // subscribe for beat updates and get cell id
@@ -67,7 +67,7 @@ Cell.prototype.live = function()
   if( this.health > 0 ){
     // age
     this.age += 1;
-    console.log('cell '+this.id+' aged to '+this.age+' with health at '+this.health+', growth at '+this.growth+', food at '+this.food);
+    //console.log('cell '+this.id+' aged to '+this.age+' with health at '+this.health+', growth at '+this.growth+', food at '+this.food);
   } else {
     this.die( 'cell '+this.id+' died at age '+this.age );
   }
@@ -81,7 +81,7 @@ Cell.prototype.die = function( a_message )
   World.unregister( this.id );
 
   if( a_message ){
-    console.log( a_message );
+    //console.log( a_message );
   }
 };
 

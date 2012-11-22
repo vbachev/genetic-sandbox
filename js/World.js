@@ -4,6 +4,7 @@ var World =
 {
   beatDelay : 500,  // world speed
   brake : true,     // will stop heartbeat at next beat
+  heartbeatHandle : '', // holds reference to the timeout function
 
   idPointer : 0,
   subscribers : [], // holds all subscribers
@@ -25,17 +26,18 @@ var World =
 
   // handles the continuous beating
   heartbeat : function(){
-    if( World.brake ){
+    if( this.brake ){
       return false;
     }
 
-    World.beat();
+    this.beat();
 
     // settimeout instead of setinterval so very short intervals are handled better 
     // + the ability to change beatDelay in realtime
-    setTimeout(
-      World.heartbeat,
-      World.beatDelay
+    clearTimeout( this.heartbeatHandle );
+    this.heartbeatHandle = setTimeout(
+      this.heartbeat,
+      this.beatDelay
     );
   },
 
