@@ -1,13 +1,14 @@
 // handles display and DOM manipulation functionality
-var Interface =
+var interface =
 {
   initialize : function(){
     // subscribe for beat updates
-    this.id = World.register( this );
+    this.id = world.register( this );
     
     // must initialize after document is ready to be able 
     // to detect this dom node
     this.cellsList = $('#cells');
+    this.familyTree = $('#familyTree');
   },
   
   stats : {
@@ -19,7 +20,7 @@ var Interface =
   // at each beat go through all cells and draw them
   update : function()
   {
-    var cells = CellManager.registry,
+    var cells = cellManager.registry,
     i, cell, node,
     toAppend = '',
     modifier = 0;
@@ -45,16 +46,18 @@ var Interface =
       if( node.length ){
         node.css('font-size', modifier+'px');
       } else {
-        toAppend += '<li id="cell'+cell.id+'" style="font-size:'+modifier+'px"></li>';
+        //toAppend += '<li id="cell'+cell.id+'" style="font-size:'+modifier+'px"></li>';
+        
+        $('#cell'+cell.parentId).append('<div id="cell'+cell.id+'" style="font-size:'+modifier+'px"></div>');
       }
     }
     
     // add new items to list
-    this.cellsList.append( toAppend );
-    $('.dead').remove();
+    //this.cellsList.append( toAppend );
+    //$('.dead').remove();
 
     this.stats.elapsed++;
-    this.stats.food = CellManager.getEnvironment().food;
+    this.stats.food = environment.getConditions().food;
 
     var message = 'step: '+this.stats.elapsed+'<br/>cells: '+this.stats.cells+'<br/>food: '+this.stats.food;
     $('.message-box').html( message );

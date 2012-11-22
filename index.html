@@ -8,6 +8,7 @@
   <script type="text/javascript" src="js/jquery.js"></script>
   <script type="text/javascript" src="js/World.js"></script>
   <script type="text/javascript" src="js/Interface.js"></script>
+  <script type="text/javascript" src="js/Environment.js"></script>
   <script type="text/javascript" src="js/CellManager.js"></script>
   <script type="text/javascript" src="js/Cell.js"></script>
   <script type="text/javascript" src="js/genetics.js"></script>
@@ -19,16 +20,21 @@
 
       <div class="message-box"></div>
       
-      <a href="#" onclick="World.stop();">stop</a>
-      <a href="#" onclick="World.start();">start</a>
+      <a href="#" onclick="world.stop();">stop</a>
+      <a href="#" onclick="world.start();">start</a>
       
     </div>
     <div class="stage">
 
-      <div class="container">
+      <!-- <div class="container">
         <ul id="cells">
-          <!-- cells go here -->
         </ul>
+      </div> -->
+      
+      <div id="tree-wrapper">
+        <div id="family-tree">
+          <span id="cell0"></span>
+        </div>
       </div>
 
     </div>

@@ -1,8 +1,9 @@
 $(document).ready(
   function()
   {
-    Interface.initialize();   // bind interface to World and DOM
-    CellManager.initialize(); // bind cellmanager to World
+    interface.initialize();   // bind interface to World and DOM
+    cellManager.initialize(); // bind cellmanager to World
+    environment.initialize();
     new Cell();               // create first (Eve) cell
     //World.start();            // start heartbeat
   }

@@ -1,6 +1,6 @@
 // handles object coordination and synchronisation
 // implements simple pub/sub observer pattern
-var World = 
+var world = 
 {
   beatDelay : 500,  // world speed
   brake : true,     // will stop heartbeat at next beat
@@ -25,19 +25,21 @@ var World =
   },
 
   // handles the continuous beating
+  // since it is asynchronously called it loses its scope and 
+  // must use <world> instead of <this>
   heartbeat : function(){
-    if( this.brake ){
+    if( world.brake ){
       return false;
     }
 
-    this.beat();
+    world.beat();
 
     // settimeout instead of setinterval so very short intervals are handled better 
     // + the ability to change beatDelay in realtime
-    clearTimeout( this.heartbeatHandle );
-    this.heartbeatHandle = setTimeout(
-      this.heartbeat,
-      this.beatDelay
+    clearTimeout( world.heartbeatHandle );
+    world.heartbeatHandle = setTimeout(
+      world.heartbeat,
+      world.beatDelay
     );
   },
 

@@ -2,25 +2,27 @@
 function Cell ( a_config ) 
 {
   // subscribe for beat updates and get cell id
-  this.id = World.register( this );
+  this.id = world.register( this );
   
   // register cell in cellmanager so it is globally accessible
-  CellManager.register( this );
+  cellManager.register( this );
 
   // default constructor configuration
   if( !a_config ){
     a_config = {};
   }
 
+  this.alive      = true;
+  this.age        = 0; // age (measured in the amount of world beats)
+  this.generation = a_config.generation ? a_config.generation : 0;
+  this.parentId   = a_config.parentId ? a_config.parentId : 0;
+  
   // vital stats
-  this.alive  = true;
-  this.age    = 0; // age (measured in the amount of world beats)
   this.growth = a_config.growth ? a_config.growth : 1;
   this.health = 100; // like 100%
   this.food   = a_config.food ? a_config.food : 0;
 
-  this.parentId = a_config.parentId ? a_config.parentId : 0
-  this.maturity = 10; // at what growth is it capable of reproducing
+  this.maturity   = 10; // at what growth is it capable of reproducing
 };
 
 // UPDATE
@@ -32,11 +34,11 @@ Cell.prototype.update = function()
   }
 
   // get environment data
-  var environment = CellManager.getEnvironment();
+  var conditions = environment.getConditions();
 
   // execute cell inner processes
-  this.feed( environment );
-  this.reproduce( environment );
+  this.feed( conditions );
+  this.reproduce( conditions );
   this.live();
 };
 
@@ -78,7 +80,7 @@ Cell.prototype.live = function()
 Cell.prototype.die = function( a_message )
 {
   this.alive = false;
-  World.unregister( this.id );
+  world.unregister( this.id );
 
   if( a_message ){
     //console.log( a_message );
@@ -87,31 +89,31 @@ Cell.prototype.die = function( a_message )
 
 // FEED
 // handles absorbing food from the environment
-Cell.prototype.feed = function( a_environment )
+Cell.prototype.feed = function( a_conditions )
 {
   var bite = 0; // how much food will the cell eat
   
-  if( a_environment.food > 0 ){
+  if( a_conditions.food > 0 ){
     // some simple way to make larger cells aquire more food from the environment
     // will be modified by genes
     bite = Math.floor( this.growth / 5 ) + 1;
     
     // bite cant be larger than food available
-    if( bite > a_environment.food ){
-      bite = a_environment.food;
+    if( bite > a_conditions.food ){
+      bite = a_conditions.food;
     }
   }
   
   // apply bite to cell and environment
-  CellManager.consumeFood( bite );
+  environment.alter( 'food', (0 - bite) );
   this.food += bite;
 };
 
 // REPRODUCE
 // check conditions and reproduce if possible
-Cell.prototype.reproduce = function( a_environment )
+Cell.prototype.reproduce = function( a_conditions )
 {
-  foodAvailable = a_environment.food && a_environment.food > 0 ? true : false;
+  var foodAvailable = a_conditions.food && a_conditions.food > 0 ? true : false;
 
   // check division conditions
   if( this.growth >= this.maturity && this.health > 50 && foodAvailable ){
@@ -125,9 +127,10 @@ Cell.prototype.reproduce = function( a_environment )
 Cell.prototype.divideCell = function()
 {
   var heritage = {
-    parentId : this.id,
-    food     : Math.floor( this.food / 2 ),
-    growth   : Math.floor( this.growth / 2 )
+    parentId   : this.id,
+    generation : this.generation + 1,
+    food       : Math.floor( this.food / 2 ),
+    growth     : Math.floor( this.growth / 2 )
   }
 
   // create two new cells inheriting half of their parent's stats
