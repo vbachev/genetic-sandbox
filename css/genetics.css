@@ -1,4 +1,68 @@
-*{
+body{
+  font-family: sans-serif;
+  font-size: 14px;
+  color: #444;
+  text-align: center;
+}
+.wrapper{
+  width: 960px;
+  margin: 0 auto;
+  text-align: left;
+}
+.header{
+  margin: 20px 0;
+}
+.dashboard{
+  margin: 20px 0;
+  overflow: hidden;
+}
+
+.profile{
+  float: right;
+  width:450px;
+  min-height: 200px;
+  margin:0 0 0 20px;
+  
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.profile ul{
+  padding: 0;
+}
+.profile li{
+  overflow: hidden;
+  margin: 0 0 5px;
+}
+.profile dt{
+  display: inline-block;
+  opacity: .9;
+  width: 50px;
+}
+.profile dd{
+  display: inline-block;
+  width: 50px;
+}
+.profile .adminStats{
+  float: right;
+  font-size: .8em;
+  opacity: .8;
+}
+.profile .lifeStats{
+  border-bottom: 1px solid #ccc;
+}
+.profile .genes{
+  font-style: italic;
+}
+
+.controller{
+  float: left;
+  width:450px;
+  min-height: 200px;
+  margin:0 20px 0 0;
+}
+
+.stage{
   -webkit-transition: .3s;
   transition: .3s;
 }
@@ -59,6 +123,7 @@
   font-size: 0;
   line-height: 0;
   white-space: nowrap;
+  cursor: pointer;
 }
 #family-tree div:hover{
   color: rgba(0,0,0,1);
@@ -97,6 +162,9 @@
   background: rgba(55,200,0,.5);
   border-radius: 50%;
   /*font-size: 20px;*/
+}
+#family-tree div:hover:after{
+  box-shadow: 1px 1px 3px black;
 }
 #family-tree .dead:after{
   background: rgba(0,0,0,.5);

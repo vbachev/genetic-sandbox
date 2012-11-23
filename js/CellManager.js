@@ -28,6 +28,10 @@ var cellManager =
     var i,
     cells = this.registry;
     
+    if( a_id === 'last' ){
+      return cells[ cells.length - 1 ];
+    }
+    
     for( i in cells ){
       if( cells[i].id === a_id ){
         return cells[i];
@@ -37,7 +41,7 @@ var cellManager =
     return false;
   },
   
-  getGeneSet : function()
+  generateGeneSet : function()
   { 
     var geneSet = {};
     // once for now

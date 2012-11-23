@@ -9,6 +9,20 @@ var uiManager =
     // to detect this dom node
     this.cellsList = $('#cells');
     this.familyTree = $('#familyTree');
+    this.bindCellClick();
+  },
+  
+  pause : function()
+  {
+    if( world.brake ){
+      // start game
+      world.start();
+      $('#pauseButton').removeClass('active').text('Pause');
+    } else {
+      // stop game
+      world.stop();
+      $('#pauseButton').addClass('active').text('Start');
+    }
   },
   
   stats : {
@@ -49,7 +63,7 @@ var uiManager =
       } else {
         //toAppend += '<li id="cell'+cell.id+'" style="font-size:'+modifier+'px"></li>';
         
-        $('#cell'+cell.parentId).append('<div id="cell'+cell.id+'" class="newborn" style="font-size:'+modifier+'px"></div>');
+        $('#cell'+cell.parentId).append('<div id="cell'+cell.id+'" title="'+cell.id+'" class="newborn" style="font-size:'+modifier+'px;"></div>');
       }
     }
     
@@ -62,5 +76,65 @@ var uiManager =
 
     var message = 'step: '+this.stats.elapsed+'<br/>cells: '+this.stats.cells+'<br/>food: '+this.stats.food;
     $('.message-box').html( message );
+  },
+  
+  bindCellClick : function()
+  {
+    var target, 
+    cellId, 
+    cell;
+  
+    $('#family-tree').click(function(e){
+      window.event.cancelBubble = true;
+      e.stopPropagation();
+
+      target = $(e.target);
+      if( target.is('div') ){
+        cellId = parseInt( target.attr('id').split('cell')[1] );
+        cell = cellManager.getCell( cellId );
+        uiManager.populateProfile( cell );
+      }
+    });
+  },
+  
+  populateProfile : function( a_cell )
+  {
+    var message = 'Cell profile:',
+    adminStats = {
+      'id'          : 'ID',
+      'parentId'    : 'Parent',
+      'generation'  : 'Generation',
+      'age'         : 'Age'
+    },
+    lifeStats = {
+      'alive'       : 'Alive',
+      'growth'      : 'Growth',
+      'maturity'    : 'Maturity',
+      'energy'      : 'Energy',
+      'food'        : 'Food',
+      'health'      : 'Health'
+    };
+    
+    // cell properties
+    message += '<ul class="adminStats">';
+    for( i in adminStats ){
+      message += '<li><dt>'+adminStats[i]+'</dt><dd>'+a_cell[i]+'</dd></li>';
+    }
+    message += '</ul>';
+    
+    message += '<ul class="lifeStats">';
+    for( i in lifeStats ){
+      message += '<li><dt>'+lifeStats[i]+'</dt><dd>'+a_cell[i]+'</dd></li>';
+    }
+    message += '</ul>';
+    
+    message += '<ul class="genes">';
+    // cell genes
+    for( i in a_cell.genes ){
+      message += '<li><dt>'+i+'</dt><dd>'+a_cell.genes[i]+'</dd></li>';
+    }
+    message += '</ul>';
+    
+    $('.profile').html(message);
   }
 };

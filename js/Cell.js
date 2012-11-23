@@ -21,7 +21,7 @@ function Cell ( a_config )
   this.health = 100; // like 100%. will cause death if it reaches 0
   this.food   = a_config.food   ? a_config.food   : 0; // stored nutrients
   this.growth = a_config.growth ? a_config.growth : 1; // represents cell size
-  this.genes  = a_config.genes  ? a_config.genes  : cellManager.getGeneSet(); // contains the cell's gene set in key-value pairs
+  this.genes  = a_config.genes  ? a_config.genes  : cellManager.generateGeneSet(); // contains the cell's gene set in key-value pairs
   
   // @todo: heat, toxins
   
@@ -154,6 +154,7 @@ Cell.prototype.starve = function( a_amount )
   var toStarve = a_amount ? a_amount : 0,
   starveDamage = 10;
   
+  // @todo: must avoid cases when high resilience causes immortal cells LOL :D
   // resilience gene lowers starve damage
   if( this.genes.resilience ){
     starveDamage -= this.genes.resilience;

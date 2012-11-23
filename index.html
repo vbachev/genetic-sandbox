@@ -18,10 +18,16 @@
   <div class="wrapper">
     <div class="dashboard">
 
-      <div class="message-box"></div>
+      <div class="controller">
+        <a href="#" id="pauseButton" onclick="uiManager.pause();">Start</a>
+      </div>
+      <div class="profile">
+        <div class="adminStats"></div>
+        <div class="lifeStats"></div>
+        <div class="genes"></div>
+      </div>
       
-      <a href="#" onclick="world.stop();">stop</a>
-      <a href="#" onclick="world.start();">start</a>
+      
       
     </div>
     <div class="stage">
