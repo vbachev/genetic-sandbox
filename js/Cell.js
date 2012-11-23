@@ -1,35 +1,36 @@
 // class describing a single cell 
 function Cell ( a_config ) 
 {
-  // subscribe for beat updates and get cell id
-  this.id = world.register( this );
-  
-  // register cell in cellmanager so it is globally accessible
-  cellManager.register( this );
-
-  // default constructor configuration
+  // default constructor configuration if cell has no parents
   if( !a_config ){
     a_config = {};
   }
-
-  this.alive      = true;
-  this.age        = 0; // age (measured in the amount of world beats)
+  
+  // register cell in cellmanager so it is globally accessible
+  cellManager.register( this );
+  
+  // administrative properties
+  this.id = world.register( this ); // subscribe for beat updates and get cell id
+  this.parentId   = a_config.parentId   ? a_config.parentId   : 0;
   this.generation = a_config.generation ? a_config.generation : 0;
-  this.parentId   = a_config.parentId ? a_config.parentId : 0;
+  this.age        = 0; // age (measured in the amount of world beats)
   
   // vital stats
-  this.growth = a_config.growth ? a_config.growth : 1;
-  this.health = 100; // like 100%
-  this.energy = 0;
-  this.food   = a_config.food ? a_config.food : 0;
-
-  this.maturity   = 10; // at what growth is it capable of reproducing
+  this.alive  = true;
+  this.energy = 0; // used to power all inner processes. created by digesting food
+  this.health = 100; // like 100%. will cause death if it reaches 0
+  this.food   = a_config.food   ? a_config.food   : 0; // stored nutrients
+  this.growth = a_config.growth ? a_config.growth : 1; // represents cell size
+  this.genes  = a_config.genes  ? a_config.genes  : cellManager.getGeneSet(); // contains the cell's gene set in key-value pairs
   
-  this.genes = a_config.genes ? a_config.genes : cellManager.getGeneSet();
+  // @todo: heat, toxins
+  
+  // at what growth is it capable of reproducing
+  this.maturity = 10 + ( this.genes.maturity ? this.genes.maturity : 0 );
 };
 
 // UPDATE
-// receive world event to update cell state
+// receive world beat event to update cell state
 Cell.prototype.update = function()
 {
   if( this.alive ){
@@ -39,35 +40,39 @@ Cell.prototype.update = function()
 };
 
 // LIVE
-// implements cost of sustaining life
+// run cell inner processes to sustain life and reproduce
 Cell.prototype.live = function()
 {
   // get environment data
   var conditions = environment.getConditions();
   
-  // gather food from environment
+  // @todo: genes may affect inner process priorities
+  
+  // Intake
+  // gather resources from environment
   this.feed( conditions );
   
-  // if conditions and stats allow it - reproduce
-  this.reproduce( conditions );
-  
-  // metabolism
+  // Metabolism
   // consume own food to grow and heal or starve when out of food
-    
-  // catabolism - breakdown stored nutrients
+  // - Catabolism - breakdown stored nutrients
+  // - Anabolism - grow and regenerate
   this.digest();
-
-  // anabolism - grow and regenerate
   this.heal();
   this.grow();
 
+  // Outtake
+  // @todo: excess energy is lost as heat to the environment
+  // @todo: throw away toxins from digestion into environment
+
+  // Reproduction
+  // after survival is ensured comes life continuation
+  this.reproduce();
+  
   // if cell survives this cycle it ages or otherwise dies
   if( this.health > 0 ){
-    // age
     this.age += 1;
-    //console.log('cell '+this.id+' aged to '+this.age+' with health at '+this.health+', growth at '+this.growth+', food at '+this.food);
   } else {
-    this.die( 'cell '+this.id+' died at age '+this.age );
+    this.die( /*'cell '+this.id+' died at age '+this.age*/ );
   }
 };
 
@@ -90,26 +95,26 @@ Cell.prototype.digest = function()
   }
   
   // turn food or tissue to energy ( 1 to 1 for now )
-  // @gene may affect food to energy ratio
+  // @todo: gene may affect food to energy ratio
   this.starve( toStarve );
   this.food   -= toBurn;
   this.energy += toBurn;
+  // @todo: generate heat and toxins as byproduct of digestion
 };
 
 // HEAL
 // use up any available energy to heal and regenerate
 Cell.prototype.heal = function()
 {
-  // amount of health per unit of energy
+  // amount of health per unit of energy modified by regeneration gene
   var healthAmount = 10;
   if( this.genes.regeneration ){
-    healthAmount = this.genes.regeneration;
+    healthAmount += this.genes.regeneration;
   }
   
   // use energy to heal until energy runs out or at full health
   while( this.energy > 0 && this.health < 100 )
   { 
-     // @gene may affect health to energy ratio
      this.health += healthAmount;
      this.energy--;
   }
@@ -119,17 +124,26 @@ Cell.prototype.heal = function()
 // use energy to build and grow cell
 Cell.prototype.grow = function()
 {
+  // growth stops after reaching maturity
+  // @todo: wont this cause anomalies?
+  if( this.growth >= this.maturity ){
+    return false;
+  }
+  
   var toGrow = 1;
+  
+  // metabolism gene modifies growth rate
   if( this.genes.metabolism ){
     toGrow = this.genes.metabolism;
   }
   
   // cant grow more than theres energy available
   if( toGrow > this.energy ){
-    // @gene may affect energy to growth ratio
     toGrow = this.energy;
   }
   
+  // grow at the expense of energy
+  this.energy -= toGrow;
   this.growth += toGrow;
 };
 
@@ -138,9 +152,14 @@ Cell.prototype.grow = function()
 Cell.prototype.starve = function( a_amount )
 {
   var toStarve = a_amount ? a_amount : 0,
-  damage = 10;
-  // @gene may affect damage=
-  this.health -= toStarve * damage;
+  starveDamage = 10;
+  
+  // resilience gene lowers starve damage
+  if( this.genes.resilience ){
+    starveDamage -= this.genes.resilience;
+  }
+  
+  this.health -= toStarve * starveDamage;
 };
 
 // DIE
@@ -151,7 +170,7 @@ Cell.prototype.die = function( a_message )
   world.unregister( this.id );
 
   if( a_message ){
-    //console.log( a_message );
+    console.log( a_message );
   }
 };
 
@@ -159,39 +178,52 @@ Cell.prototype.die = function( a_message )
 // handles absorbing food from the environment
 Cell.prototype.feed = function( a_conditions )
 {
-  var bite = 0; // how much food will the cell eat
-  
-  if( a_conditions.food > 0 ){
-    // some simple way to make larger cells aquire more food from the environment
-    // will be modified by genes
-    bite = Math.floor( this.growth / 5 ) + 1;
-    
-    // bite cant be larger than food available
-    if( bite > a_conditions.food ){
-      bite = a_conditions.food;
-    }
+  if( a_conditions.food < 1 ){
+    return false;
   }
   
-  // apply bite to cell and environment
-  environment.alter( 'food', (0 - bite) );
-  this.food += bite;
+  var biteSize = 1; // how much food will the cell eat
+  if( this.genes.gluttony ){
+    biteSize = this.genes.gluttony;
+  }
+  
+  // some simple way to make larger cells aquire more food from the environment
+  biteSize += Math.floor( this.growth / 5 );
+
+  // bite cant be larger than food available
+  if( biteSize > a_conditions.food ){
+    biteSize = a_conditions.food;
+  }
+  
+  // apply bite to cell and to environment
+  environment.alter( 'food', (0 - biteSize) );
+  this.food += biteSize;
 };
 
 // REPRODUCE
 // check conditions and reproduce if possible
-Cell.prototype.reproduce = function( a_conditions )
+Cell.prototype.reproduce = function()
 {
-  var foodAvailable = a_conditions.food && a_conditions.food > 0 ? true : false;
+  //var foodCost   = 4;
+  var energyCost = 5;
+  // @todo: gene may affect cost and efficiency of reproduction
+  var foodAvailable   = true;//this.food >= foodCost;
+  var energyAvailable = this.energy >= energyCost;
 
   // check division conditions
-  if( this.growth >= this.maturity && this.health > 50 && foodAvailable ){
+  if( this.growth >= this.maturity && this.health > 50 && foodAvailable && energyAvailable ){
+    
+    // pay the price for reproduction
+    //this.food   -= foodCost;
+    this.energy -= energyCost;
+    
     // divide
     this.divideCell();
   }
 };
 
 // DIVIDE
-// handles division and stats inheritance
+// handles division, stats inheritance and "administrative tasks"
 Cell.prototype.divideCell = function()
 {
   var heritageA = {
@@ -202,7 +234,7 @@ Cell.prototype.divideCell = function()
   },
   heritageB = heritageA;
   
-  // mutations
+  // inherit and mutate daughter genes
   heritageA.genes = cellManager.mutateGenes( this.genes );
   heritageB.genes = cellManager.mutateGenes( this.genes );
 
@@ -210,6 +242,7 @@ Cell.prototype.divideCell = function()
   var daughterA = new Cell( heritageA );
   var daughterB = new Cell( heritageB );
 
-  // kill parent
-  this.die( 'cell '+this.id+' divided into cells '+daughterA.id+' and '+daughterB.id );
+  // save a reference to children and kill cell
+  this.children = [ daughterA.id, daughterB.id ];
+  this.die( /*'cell '+this.id+' divided into cells '+daughterA.id+' and '+daughterB.id*/ );
 };

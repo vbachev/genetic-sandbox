@@ -2,7 +2,7 @@
 // implements simple pub/sub observer pattern
 var world = 
 {
-  beatDelay : 500,  // world speed
+  speed : 500,  // delay in ms between beats
   brake : true,     // will stop heartbeat at next beat
   heartbeatHandle : '', // holds reference to the timeout function
 
@@ -39,7 +39,7 @@ var world =
     clearTimeout( world.heartbeatHandle );
     world.heartbeatHandle = setTimeout(
       world.heartbeat,
-      world.beatDelay
+      world.speed
     );
   },
 
