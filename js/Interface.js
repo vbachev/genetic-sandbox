@@ -17,11 +17,11 @@ var uiManager =
     if( world.brake ){
       // start game
       world.start();
-      $('#pauseButton').removeClass('active').text('Pause');
+      $('#startButton').addClass('active');
     } else {
       // stop game
       world.stop();
-      $('#pauseButton').addClass('active').text('Start');
+      $('#startButton').removeClass('active');
     }
   },
   
@@ -72,10 +72,20 @@ var uiManager =
     //$('.dead').remove();
 
     this.stats.elapsed++;
-    this.stats.food = environment.getConditions().food;
+    this.stats.environment = '';
+    environmentStats = environment.getConditions();
+    for( i in environmentStats ){
+      this.stats.environment += i+': '+environmentStats[i]+'<br/>'
+    }
 
     var message = 'step: '+this.stats.elapsed+'<br/>cells: '+this.stats.cells+'<br/>food: '+this.stats.food;
-    $('.message-box').html( message );
+    $('.message-box .step').text( this.stats.elapsed );
+    $('.message-box .cells').text( this.stats.cells );
+    $('.message-box .environment').html( this.stats.environment );
+
+    if( this.watched ){
+      uiManager.populateProfile( cellManager.getCell( this.watched ));
+    }
   },
   
   bindCellClick : function()
@@ -85,7 +95,7 @@ var uiManager =
     cell;
   
     $('#family-tree').click(function(e){
-      window.event.cancelBubble = true;
+      e.cancelBubble = true;
       e.stopPropagation();
 
       target = $(e.target);
@@ -93,6 +103,10 @@ var uiManager =
         cellId = parseInt( target.attr('id').split('cell')[1] );
         cell = cellManager.getCell( cellId );
         uiManager.populateProfile( cell );
+        uiManager.watched = cellId;
+
+        $('#family-tree .selected').removeClass('selected');
+        target.addClass('selected');
       }
     });
   },

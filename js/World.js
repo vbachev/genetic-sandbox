@@ -12,7 +12,6 @@ var world =
   // starts heartbeat
   start : function()
   {
-    console.log('world started');
     this.brake = false;
     this.heartbeat();
   },
@@ -21,13 +20,13 @@ var world =
   stop : function()
   {
     this.brake = true;
-    console.log('world stopped');
   },
 
   // handles the continuous beating
   // since it is asynchronously called it loses its scope and 
   // must use <world> instead of <this>
-  heartbeat : function(){
+  heartbeat : function()
+  {
     if( world.brake ){
       return false;
     }

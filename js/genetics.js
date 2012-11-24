@@ -5,6 +5,5 @@ $(document).ready(
     cellManager.initialize(); // bind cellmanager to World
     environment.initialize();
     new Cell();               // create first (Eve) cell
-    //World.start();            // start heartbeat
   }
 );

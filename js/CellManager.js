@@ -25,6 +25,10 @@ var cellManager =
   // return a cell by id
   getCell : function( a_id )
   {
+    if( !a_id ){
+      return {};
+    }
+    
     var i,
     cells = this.registry;
     

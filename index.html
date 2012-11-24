@@ -16,34 +16,53 @@
 <body>
   
   <div class="wrapper">
-    <div class="dashboard">
-
-      <div class="controller">
-        <a href="#" id="pauseButton" onclick="uiManager.pause();">Start</a>
-      </div>
-      <div class="profile">
-        <div class="adminStats"></div>
-        <div class="lifeStats"></div>
-        <div class="genes"></div>
-      </div>
-      
-      
-      
+    <div class="header">
+      <h1>Genetics</h1>
     </div>
-    <div class="stage">
-
-      <!-- <div class="container">
-        <ul id="cells">
-        </ul>
-      </div> -->
+    <div class="body">
       
-      <div id="tree-wrapper">
-        <div id="family-tree">
-          <span id="cell0"></span>
+      <div class="dashboard">
+
+        <div class="controller panel">
+          <a href="#" id="startButton" onclick="uiManager.pause();">ON</a>
+          <div class="message-box">
+            <label>Steps:</label> 
+            <span class="step">0</span>
+            <br/>
+            <label>Live cells:</label> 
+            <span class="cells">0</span>
+            <br/>
+            <br/>
+            <label>Environment:</label>
+            <div class="environment">---</div>
+          </div>
+
         </div>
+        
+        <div class="profile panel">
+          <div class="adminStats"></div>
+          <div class="lifeStats"></div>
+          <div class="genes"></div>
+        </div>
+        
+      </div>
+      <div class="stage">
+
+        <!-- <div class="container">
+          <ul id="cells">
+          </ul>
+        </div> -->
+        
+        <div id="tree-wrapper">
+          <div id="family-tree">
+            <span id="cell0"></span>
+          </div>
+        </div>
+
       </div>
 
     </div>
+    <div class="footer clearfix"></div>
   </div>
 
 </body>
