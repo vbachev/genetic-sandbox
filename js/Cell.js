@@ -76,6 +76,39 @@ Cell.prototype.live = function()
   }
 };
 
+// FEED
+// handles absorbing food from the environment
+Cell.prototype.feed = function( a_conditions )
+{
+  // no need to calculate if no food available
+  if( a_conditions.food < 1 ){
+    return false;
+  }
+  
+  var biteSize = 1; // how much food will the cell eat
+  if( this.genes.gluttony ){
+    biteSize += this.genes.gluttony;
+  }
+  
+  // some simple way to make larger cells aquire more food from the environment
+  biteSize += Math.floor( this.growth / 5 );
+
+  // bite cant be larger than food available
+  if( biteSize > a_conditions.food ){
+    biteSize = a_conditions.food;
+  }
+
+  // @todo: fix gene anomaly
+  // avoid negative values so we dont "return" food to the environment
+  if( biteSize < 0 ){
+    biteSize = 0;
+  }
+  
+  // apply bite to cell and to environment
+  environment.alter( 'food', (0 - biteSize) );
+  this.food += biteSize;
+};
+
 // DIGEST
 // burn up stored nutrients to get energy
 Cell.prototype.digest = function()
@@ -85,13 +118,20 @@ Cell.prototype.digest = function()
   toStarve = 0;
   
   if( this.genes.metabolism ){
-    toBurn = this.genes.metabolism;
+    toBurn += this.genes.metabolism;
   }
   
   // if not enough stored food the cell will digest its own tissue
   if( toBurn > availableFood ){
     toStarve = toBurn - availableFood;
     toBurn = availableFood;
+  }
+
+  // @todo: fix gene anomaly
+  // avoid negative values so we don't regenerate stored food and decrease energy
+  // avoid 0 so cells dont get stuck forever
+  if( toBurn < 1 ){
+    toBurn = 1;
   }
   
   // turn food or tissue to energy ( 1 to 1 for now )
@@ -110,6 +150,12 @@ Cell.prototype.heal = function()
   var healthAmount = 10;
   if( this.genes.regeneration ){
     healthAmount += this.genes.regeneration;
+  }
+  
+  // @todo: fix gene anomaly
+  // avoid negative values so cells dont kill themselves
+  if( healthAmount < 0 ){
+    healthAmount = 0;
   }
   
   // use energy to heal until energy runs out or at full health
@@ -134,71 +180,23 @@ Cell.prototype.grow = function()
   
   // metabolism gene modifies growth rate
   if( this.genes.metabolism ){
-    toGrow = this.genes.metabolism;
+    toGrow += this.genes.metabolism;
   }
   
   // cant grow more than theres energy available
   if( toGrow > this.energy ){
     toGrow = this.energy;
   }
+
+  // @todo: fix gene anomaly
+  // avoid negative values so cells dont degenerate
+  if( toGrow < 1 ){
+    toGrow = 1;
+  }
   
   // grow at the expense of energy
   this.energy -= toGrow;
   this.growth += toGrow;
-};
-
-// STARVE
-// when out of food autolysis breaks down cell tissue to sustain life
-Cell.prototype.starve = function( a_amount )
-{
-  var toStarve = a_amount ? a_amount : 0,
-  starveDamage = 10;
-  
-  // @todo: must avoid cases when high resilience causes immortal cells LOL :D
-  // resilience gene lowers starve damage
-  if( this.genes.resilience ){
-    starveDamage -= this.genes.resilience;
-  }
-  
-  this.health -= toStarve * starveDamage;
-};
-
-// DIE
-// handles administrative tasks concerning cell death :)
-Cell.prototype.die = function( a_message )
-{
-  this.alive = false;
-  world.unregister( this.id );
-
-  if( a_message ){
-    console.log( a_message );
-  }
-};
-
-// FEED
-// handles absorbing food from the environment
-Cell.prototype.feed = function( a_conditions )
-{
-  if( a_conditions.food < 1 ){
-    return false;
-  }
-  
-  var biteSize = 1; // how much food will the cell eat
-  if( this.genes.gluttony ){
-    biteSize = this.genes.gluttony;
-  }
-  
-  // some simple way to make larger cells aquire more food from the environment
-  biteSize += Math.floor( this.growth / 5 );
-
-  // bite cant be larger than food available
-  if( biteSize > a_conditions.food ){
-    biteSize = a_conditions.food;
-  }
-  
-  // apply bite to cell and to environment
-  environment.alter( 'food', (0 - biteSize) );
-  this.food += biteSize;
 };
 
 // REPRODUCE
@@ -246,4 +244,37 @@ Cell.prototype.divideCell = function()
   // save a reference to children and kill cell
   this.children = [ daughterA.id, daughterB.id ];
   this.die( /*'cell '+this.id+' divided into cells '+daughterA.id+' and '+daughterB.id*/ );
+};
+
+// STARVE
+// when out of food autolysis breaks down cell tissue to sustain life
+Cell.prototype.starve = function( a_amount )
+{
+  var toStarve = a_amount ? a_amount : 0,
+  starveDamage = 10;
+  
+  // @todo: must avoid cases when high resilience causes immortal cells LOL :D
+  // resilience gene lowers starve damage
+  if( this.genes.resilience ){
+    starveDamage -= this.genes.resilience;
+  }
+
+  // @todo: fix gene anomaly
+  if( starveDamage < 0 ){
+    starveDamage = 0;
+  }
+  
+  this.health -= toStarve * starveDamage;
+};
+
+// DIE
+// handles administrative tasks concerning cell death :)
+Cell.prototype.die = function( a_message )
+{
+  this.alive = false;
+  world.unregister( this.id );
+
+  if( a_message ){
+    console.log( a_message );
+  }
 };

@@ -6,10 +6,10 @@
   <link rel="stylesheet" href="css/genetics.css">
 
   <script type="text/javascript" src="js/jquery.js"></script>
-  <script type="text/javascript" src="js/World.js"></script>
-  <script type="text/javascript" src="js/Interface.js"></script>
-  <script type="text/javascript" src="js/Environment.js"></script>
-  <script type="text/javascript" src="js/CellManager.js"></script>
+  <script type="text/javascript" src="js/world.js"></script>
+  <script type="text/javascript" src="js/uiManager.js"></script>
+  <script type="text/javascript" src="js/environment.js"></script>
+  <script type="text/javascript" src="js/cellManager.js"></script>
   <script type="text/javascript" src="js/Cell.js"></script>
   <script type="text/javascript" src="js/genetics.js"></script>
 </head>
@@ -24,6 +24,7 @@
       <div class="dashboard">
 
         <div class="controller panel">
+          <h2>Controls:</h2>
           <a href="#" id="startButton" onclick="uiManager.pause();">ON</a>
           <div class="message-box">
             <label>Steps:</label> 
@@ -40,9 +41,9 @@
         </div>
         
         <div class="profile panel">
-          <div class="adminStats"></div>
-          <div class="lifeStats"></div>
-          <div class="genes"></div>
+          <h2>Cell profile:</h2>
+          <div class="stats">
+          </div>
         </div>
         
       </div>

@@ -32,6 +32,9 @@ var cellManager =
     var i,
     cells = this.registry;
     
+    if( a_id === 'first' ){
+      return cells[0];
+    }
     if( a_id === 'last' ){
       return cells[ cells.length - 1 ];
     }

@@ -10,6 +10,7 @@ var uiManager =
     this.cellsList = $('#cells');
     this.familyTree = $('#familyTree');
     this.bindCellClick();
+    this.setProfileFields();
   },
   
   pause : function()
@@ -25,10 +26,26 @@ var uiManager =
     }
   },
   
+  // what fields to show in controls
   stats : {
     cells : 0,
     elapsed : 0,
     food : 0
+  },
+
+  // what fields to show in profile
+  cellStats : {
+    'id'          : 'ID',
+    'parentId'    : 'Parent',
+    'children'    : 'Children',
+    'generation'  : 'Generation',
+    'age'         : 'Age',
+    'alive'       : 'Alive',
+    'growth'      : 'Growth',
+    'maturity'    : 'Maturity',
+    'energy'      : 'Energy',
+    'food'        : 'Food',
+    'health'      : 'Health'
   },
 
   // at each beat go through all cells and draw them
@@ -103,7 +120,7 @@ var uiManager =
         cellId = parseInt( target.attr('id').split('cell')[1] );
         cell = cellManager.getCell( cellId );
         uiManager.populateProfile( cell );
-        uiManager.watched = cellId;
+        uiManager.watched = cellId+1;
 
         $('#family-tree .selected').removeClass('selected');
         target.addClass('selected');
@@ -111,44 +128,35 @@ var uiManager =
     });
   },
   
+  setProfileFields : function()
+  {
+    var dummyCell = new Cell(),
+    profileHtml = '<ul>';
+
+    for( i in this.cellStats ){
+      profileHtml += '<li class="'+i+'"><label>'+this.cellStats[i]+':</label> <span>---</span></li>'
+    }
+    profileHtml += '<li class="genes"><label>Genes:</label> <span>---</span></li>'
+
+    $('.profile .stats').html( profileHtml+'</ul>' );
+    dummyCell.die();
+    this.watched = 1;
+  },
+
   populateProfile : function( a_cell )
   {
-    var message = 'Cell profile:',
-    adminStats = {
-      'id'          : 'ID',
-      'parentId'    : 'Parent',
-      'generation'  : 'Generation',
-      'age'         : 'Age'
-    },
-    lifeStats = {
-      'alive'       : 'Alive',
-      'growth'      : 'Growth',
-      'maturity'    : 'Maturity',
-      'energy'      : 'Energy',
-      'food'        : 'Food',
-      'health'      : 'Health'
-    };
+    var i, 
+    genesHtml = '',
+    value = '---';
     
-    // cell properties
-    message += '<ul class="adminStats">';
-    for( i in adminStats ){
-      message += '<li><dt>'+adminStats[i]+'</dt><dd>'+a_cell[i]+'</dd></li>';
+    for( i in this.cellStats ){
+      value = a_cell[i] === undefined ? '---' : a_cell[i];
+      $('.profile .'+i+' span').text( value );
     }
-    message += '</ul>';
-    
-    message += '<ul class="lifeStats">';
-    for( i in lifeStats ){
-      message += '<li><dt>'+lifeStats[i]+'</dt><dd>'+a_cell[i]+'</dd></li>';
-    }
-    message += '</ul>';
-    
-    message += '<ul class="genes">';
-    // cell genes
+
     for( i in a_cell.genes ){
-      message += '<li><dt>'+i+'</dt><dd>'+a_cell.genes[i]+'</dd></li>';
+      genesHtml += i+': '+a_cell.genes[i]+'<br/>';
     }
-    message += '</ul>';
-    
-    $('.profile').html(message);
+    $('.profile .genes span').html( genesHtml );
   }
 };

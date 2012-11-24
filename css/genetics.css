@@ -5,6 +5,12 @@ body{
   text-align: center;
   background: #f4f4f4;
 }
+
+h2{
+  margin-top:0;
+  margin-bottom: .5em;
+}
+
 .wrapper{
   width: 960px;
   margin: 0 auto;
@@ -77,6 +83,7 @@ body{
 }
 #startButton.active{
   color: #aaa;
+  background-color: #6b2;
 }
 #startButton.active:before{
   color: #ccc;
@@ -92,33 +99,22 @@ body{
 .profile{
 }
 .profile ul{
-  padding: 10px 0;
+  padding: 0;
   margin: 0;
-  border-top: 1px solid #ccc;
 }
 .profile li{
   overflow: hidden;
   margin: 0 0 5px;
 }
-.profile dt{
+.profile li label{
   display: inline-block;
-  opacity: .8;
-  width: 50px;
+  width: 100px;
+  color: #888;
 }
-.profile dd{
-  display: inline-block;
-  width: 50px;
-}
-/*.profile .adminStats{
-  float: right;
-  font-size: .8em;
-  opacity: .8;
-}*/
-.profile .lifeStats{
-  border-bottom: 1px solid #ccc;
-}
-.profile .genes{
+.profile .genes span{
   font-style: italic;
+  display: block;
+  margin-left: 30px;
 }
 
 .controller{
