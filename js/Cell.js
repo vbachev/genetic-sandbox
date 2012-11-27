@@ -13,6 +13,7 @@ function Cell ( a_config )
   this.id = world.register( this ); // subscribe for beat updates and get cell id
   this.parentId   = a_config.parentId   ? a_config.parentId   : 0;
   this.generation = a_config.generation ? a_config.generation : 0;
+  this.species    = a_config.species    ? a_config.species    : 0;
   this.age        = 0; // age (measured in the amount of world beats)
   
   // vital stats
@@ -228,6 +229,7 @@ Cell.prototype.divideCell = function()
   var heritageA = {
     parentId   : this.id,
     generation : this.generation + 1,
+    species    : this.species,
     food       : Math.floor( this.food / 2 ),
     growth     : Math.floor( this.growth / 2 )
   },
