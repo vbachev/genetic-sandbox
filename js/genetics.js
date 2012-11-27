@@ -5,5 +5,8 @@ $(document).ready(
     cellManager.initialize(); // bind cellmanager to World
     environment.initialize();
     new Cell();               // create first (Eve) cell
+
+    world.speed = 0;
+    //world.unregister(uiManager.id);
   }
 );

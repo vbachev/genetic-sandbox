@@ -2,9 +2,13 @@
 // implements simple pub/sub observer pattern
 var world = 
 {
-  speed : 500,  // delay in ms between beats
+  speed : 1,  // delay in ms between beats
   brake : true,     // will stop heartbeat at next beat
   heartbeatHandle : '', // holds reference to the timeout function
+  
+  // if true heartbeat will use speed to delay execution; 
+  // if false consecutive beats will execute as soon as the previous one is finished
+  async : true, 
 
   idPointer : 0,
   subscribers : [], // holds all subscribers
@@ -12,8 +16,8 @@ var world =
   // starts heartbeat
   start : function()
   {
-    this.brake = false;
-    this.heartbeat();
+    world.brake = false;
+    world.heartbeat();
   },
 
   // stops hartbeat
@@ -33,24 +37,31 @@ var world =
 
     world.beat();
 
-    // settimeout instead of setinterval so very short intervals are handled better 
-    // + the ability to change beatDelay in realtime
-    clearTimeout( world.heartbeatHandle );
-    world.heartbeatHandle = setTimeout(
-      world.heartbeat,
-      world.speed
-    );
+    if( this.async ){
+      // settimeout instead of setinterval so very short intervals are handled better 
+      // + the ability to change beatDelay in realtime
+      // clearTimeout( world.heartbeatHandle );
+      world.heartbeatHandle = setTimeout(
+        world.heartbeat,
+        world.speed
+      );
+    } else {
+      world.heartbeat();
+    }
   },
 
   // handles publishing the beat event and updating all subscribers
   beat : function()
   {
-    var i, 
-    subscriber;
+    var subs = this.subscribers,
+    l = subs.length,
+    subscriber,
+    i;
 
-    for( i in this.subscribers ){
-      subscriber = this.subscribers[i];
-      if( subscriber.update ){
+    for( i = 0; i < l; i++){ 
+    //for( i in this.subscribers ){
+      subscriber = subs[i];
+      if( subscriber && subscriber.update ){
         subscriber.update();
       }
     }

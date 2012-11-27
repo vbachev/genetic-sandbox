@@ -26,7 +26,7 @@ function Cell ( a_config )
   // @todo: heat, toxins
   
   // at what growth is it capable of reproducing
-  this.maturity = 10 + ( this.genes.maturity ? this.genes.maturity : 0 );
+  this.maturity = 10 + ( this.genes.maturity ? this.genes.maturity < -8 ? -8 : this.genes.maturity : 0 );
 };
 
 // UPDATE
@@ -260,8 +260,8 @@ Cell.prototype.starve = function( a_amount )
   }
 
   // @todo: fix gene anomaly
-  if( starveDamage < 0 ){
-    starveDamage = 0;
+  if( starveDamage < 1 ){
+    starveDamage = 1;
   }
   
   this.health -= toStarve * starveDamage;

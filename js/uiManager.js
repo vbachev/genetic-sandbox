@@ -15,19 +15,30 @@ var uiManager =
   
   pause : function()
   {
+    var playStart,
+    playDuration;
+
+    console.time('game');
+
     if( world.brake ){
       // start game
-      world.start();
       $('#startButton').addClass('active');
+      this.stats.duration = new Date();
+
+      // use a delay to alow DOM manipulations to happen before the game starts
+      setTimeout( world.start, 100 );
     } else {
       // stop game
+      this.stats.duration = new Date() - this.stats.duration;
       world.stop();
       $('#startButton').removeClass('active');
+      console.timeEnd('game');
     }
   },
   
   // what fields to show in controls
   stats : {
+    duration : 0,
     cells : 0,
     elapsed : 0,
     food : 0
@@ -51,10 +62,39 @@ var uiManager =
   // at each beat go through all cells and draw them
   update : function()
   {
+    if( this.stats.elapsed < 500 && cellManager.registry.length < 10000 ){
+      this.stats.elapsed++;
+      return false;
+    }
+    this.pause();
+
+    // represent cells state
+    this.drawTree();
+
+    // represent changes in environment
+    this.stats.environment = '';
+    environmentStats = environment.getConditions();
+    for( i in environmentStats ){
+      this.stats.environment += i+': '+environmentStats[i]+'<br/>'
+    }
+
+    // var message = 'step: '+this.stats.elapsed+'<br/>cells: '+this.stats.cells+'<br/>food: '+this.stats.food;
+    $('.message-box .step').text( this.stats.elapsed + ' : ' + this.stats.duration );
+    $('.message-box .cells').text( this.stats.cells );
+    $('.message-box .environment').html( this.stats.environment );
+
+    if( this.watched ){
+      uiManager.populateProfile( cellManager.getCell( this.watched ));
+    }
+  },
+
+  // loop through cells and represent generations on screen
+  drawTree : function ()
+  {
     var cells = cellManager.registry,
     i, cell, node,
     toAppend = '',
-    modifier = 0;
+    modifier = 5;
 
     $('.newborn').removeClass('newborn');
     this.stats.cells = 0;
@@ -69,8 +109,8 @@ var uiManager =
 
         this.stats.cells++;
       } else {
-        node.addClass('dead');
-        continue;
+        //node.addClass('dead');
+        //continue;
       }
   
       // edit an existing node or create a new one
@@ -80,29 +120,13 @@ var uiManager =
       } else {
         //toAppend += '<li id="cell'+cell.id+'" style="font-size:'+modifier+'px"></li>';
         
-        $('#cell'+cell.parentId).append('<div id="cell'+cell.id+'" title="'+cell.id+'" class="newborn" style="font-size:'+modifier+'px;"></div>');
+        $('#cell'+cell.parentId).append('<div id="cell'+cell.id+'" title="'+cell.id+'" class="'+(cell.alive ? '' : 'dead')+'" style="font-size:'+modifier+'px;"></div>');
       }
     }
-    
+
     // add new items to list
     //this.cellsList.append( toAppend );
     //$('.dead').remove();
-
-    this.stats.elapsed++;
-    this.stats.environment = '';
-    environmentStats = environment.getConditions();
-    for( i in environmentStats ){
-      this.stats.environment += i+': '+environmentStats[i]+'<br/>'
-    }
-
-    var message = 'step: '+this.stats.elapsed+'<br/>cells: '+this.stats.cells+'<br/>food: '+this.stats.food;
-    $('.message-box .step').text( this.stats.elapsed );
-    $('.message-box .cells').text( this.stats.cells );
-    $('.message-box .environment').html( this.stats.environment );
-
-    if( this.watched ){
-      uiManager.populateProfile( cellManager.getCell( this.watched ));
-    }
   },
   
   bindCellClick : function()
