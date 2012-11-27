@@ -8,8 +8,8 @@ var cellManager =
   },
 
   // will hold information for all cells
-  registry : [], 
-
+  registry : [],
+  
   // record reference to cells
   register : function( a_cell )
   {
@@ -19,7 +19,7 @@ var cellManager =
   
   update : function()
   {
-    return false;
+    this.detectSpecies();
   },
   
   // return a cell by id
@@ -123,5 +123,59 @@ var cellManager =
     this.addRandomGene( newGenes );
     
     return newGenes;
-  }
+  },
+  
+  // will hold info for all species
+  species  : [],
+  speciesCounter : 0,
+
+  registerSpecies : function( a_species )
+  {
+    this.species.push( a_species );
+    
+    return this.speciesCounter;
+    this.speciesCounter++;
+  },
+  
+  getSpeciesName : function ( a_name ) 
+  {
+    if( !a_name ){
+      a_name = '';
+    }
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    return a_name + possible.charAt(Math.floor(Math.random() * possible.length));
+  },
+  
+  getCellsBySpecies : function( a_id )
+  {
+    var result = [],
+    cell, 
+    i;
+    
+    for( i in this.registry ){
+      cell = this.registry[i];
+      if( cell.species === a_id ){
+        result.push( cell );
+      }
+    }
+    
+    return result;
+  },
+  
+  detectSpecies : function()
+  {
+    return false;
+    
+    /*for( i in this.species ){
+      currentSpecies = this.species[i];
+      cells = this.getCellsBySpecies( currentSpecies.id );
+      limits = [];
+      for( j in cells ){
+        for
+        limit = {
+          property : 
+        }
+      }
+    }
+  }*/
 };
