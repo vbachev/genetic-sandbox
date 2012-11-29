@@ -19,7 +19,7 @@ var cellManager =
   
   update : function()
   {
-    this.detectSpecies();
+    return false;
   },
   
   // return a cell by id
@@ -67,7 +67,7 @@ var cellManager =
     { 
       name   : 'regeneration',
       info   : 'alters healing speed by the amount of health regenerated for each unit of energy; biologically defined by the efficiency of organel regeneration',
-      value  : 1,
+      value  : 10,
       active : true
     },
     { 
@@ -79,16 +79,30 @@ var cellManager =
     { 
       name   : 'resilience',
       info   : 'modifies the amount of health lost when starving (higher values decrease health loss); biologically defined by the efficiency of autolysis (will the cell efficiently handle destroying needless tissue first)',
-      value  : 1,
+      value  : 10,
       active : true
     },
     { 
       name   : 'maturity',
       info   : 'modifies the growth amount at which the cell becomes mature and can reproduce',
-      value  : 0,
+      value  : 10,
       active : true
     }
   ],
+
+  getGeneByName : function( a_name )
+  {
+    var i, 
+    genes = this.genePool;
+    
+    for( i in genes ){
+      if( genes[i].name === a_name ){
+        return genes[i];
+      }
+    }
+
+    return false;
+  },
   
   // Pass some cell's genes and add a random one to them. If cell's gene count 
   // is close to the number of all genes chances of adding a new one will be 
@@ -116,66 +130,13 @@ var cellManager =
     // loop through genes and alter them slightly
     for( i in a_genes ){
       gene = a_genes[i];
-      gene += Math.ceil(Math.random()*3) - 2; // (+1, 0 or -1) or 25% chance to alter gene value
+      modifier = 1+(Math.round(Math.random())*2-1)/10; // either 1.1 or 0.9
+      gene = gene*modifier;
       newGenes[ i ] = gene;
     }
     
     this.addRandomGene( newGenes );
     
     return newGenes;
-  },
-  
-  // will hold info for all species
-  species  : [],
-  speciesCounter : 0,
-
-  registerSpecies : function( a_species )
-  {
-    this.species.push( a_species );
-    
-    return this.speciesCounter;
-    this.speciesCounter++;
-  },
-  
-  getSpeciesName : function ( a_name ) 
-  {
-    if( !a_name ){
-      a_name = '';
-    }
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    return a_name + possible.charAt(Math.floor(Math.random() * possible.length));
-  },
-  
-  getCellsBySpecies : function( a_id )
-  {
-    var result = [],
-    cell, 
-    i;
-    
-    for( i in this.registry ){
-      cell = this.registry[i];
-      if( cell.species === a_id ){
-        result.push( cell );
-      }
-    }
-    
-    return result;
-  },
-  
-  detectSpecies : function()
-  {
-    return false;
-    
-    /*for( i in this.species ){
-      currentSpecies = this.species[i];
-      cells = this.getCellsBySpecies( currentSpecies.id );
-      limits = [];
-      for( j in cells ){
-        for
-        limit = {
-          property : 
-        }
-      }
-    }
-  }*/
+  }
 };

@@ -49,6 +49,7 @@ var uiManager =
     'id'          : 'ID',
     'parentId'    : 'Parent',
     'children'    : 'Children',
+    //'species'     : 'Species',
     'generation'  : 'Generation',
     'age'         : 'Age',
     'alive'       : 'Alive',
@@ -62,7 +63,7 @@ var uiManager =
   // at each beat go through all cells and draw them
   update : function()
   {
-    if( this.stats.elapsed < 500 && cellManager.registry.length < 10000 ){
+    if( this.stats.elapsed < 5000 && cellManager.registry.length < 10000 ){
       this.stats.elapsed++;
       return false;
     }
@@ -79,7 +80,7 @@ var uiManager =
     }
 
     // var message = 'step: '+this.stats.elapsed+'<br/>cells: '+this.stats.cells+'<br/>food: '+this.stats.food;
-    $('.message-box .step').text( this.stats.elapsed + ' : ' + this.stats.duration );
+    $('.message-box .step').text( this.stats.elapsed );
     $('.message-box .cells').text( this.stats.cells );
     $('.message-box .environment').html( this.stats.environment );
 
@@ -94,9 +95,10 @@ var uiManager =
     var cells = cellManager.registry,
     i, cell, node,
     toAppend = '',
-    modifier = 5;
+    modifier = 5,
+    color;
 
-    $('.newborn').removeClass('newborn');
+    //$('.newborn').removeClass('newborn');
     this.stats.cells = 0;
 
     for( i in cells ){
@@ -106,6 +108,7 @@ var uiManager =
       if( cell.alive ){
         // use the cell growth value as an indicator
         modifier = cell.growth;
+        //color = (cellManager.getSpeciesById( cell.species )).color;
 
         this.stats.cells++;
       } else {
@@ -175,12 +178,18 @@ var uiManager =
     
     for( i in this.cellStats ){
       value = a_cell[i] === undefined ? '---' : a_cell[i];
+
+      if( typeof value === 'number' ){
+        value = Math.round(value*100)/100;
+      }
+
       $('.profile .'+i+' span').text( value );
     }
 
     for( i in a_cell.genes ){
-      genesHtml += i+': '+a_cell.genes[i]+'<br/>';
+      genesHtml += i+': '+Math.round(a_cell.genes[i]*100)/100+'<br/>';
     }
+
     $('.profile .genes span').html( genesHtml );
   }
 };

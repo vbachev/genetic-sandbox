@@ -13,7 +13,7 @@ function Cell ( a_config )
   this.id = world.register( this ); // subscribe for beat updates and get cell id
   this.parentId   = a_config.parentId   ? a_config.parentId   : 0;
   this.generation = a_config.generation ? a_config.generation : 0;
-  this.species    = a_config.species    ? a_config.species    : 0;
+  //this.species    = a_config.species    ? a_config.species    : 0;
   this.age        = 0; // age (measured in the amount of world beats)
   
   // vital stats
@@ -27,7 +27,7 @@ function Cell ( a_config )
   // @todo: heat, toxins
   
   // at what growth is it capable of reproducing
-  this.maturity = 10 + ( this.genes.maturity ? this.genes.maturity < -8 ? -8 : this.genes.maturity : 0 );
+  this.maturity = this.genes.maturity ? this.genes.maturity : 10;
 };
 
 // UPDATE
@@ -88,7 +88,7 @@ Cell.prototype.feed = function( a_conditions )
   
   var biteSize = 1; // how much food will the cell eat
   if( this.genes.gluttony ){
-    biteSize += this.genes.gluttony;
+    biteSize = this.genes.gluttony;
   }
   
   // some simple way to make larger cells aquire more food from the environment
@@ -97,12 +97,6 @@ Cell.prototype.feed = function( a_conditions )
   // bite cant be larger than food available
   if( biteSize > a_conditions.food ){
     biteSize = a_conditions.food;
-  }
-
-  // @todo: fix gene anomaly
-  // avoid negative values so we dont "return" food to the environment
-  if( biteSize < 0 ){
-    biteSize = 0;
   }
   
   // apply bite to cell and to environment
@@ -119,20 +113,13 @@ Cell.prototype.digest = function()
   toStarve = 0;
   
   if( this.genes.metabolism ){
-    toBurn += this.genes.metabolism;
+    toBurn = this.genes.metabolism;
   }
   
   // if not enough stored food the cell will digest its own tissue
   if( toBurn > availableFood ){
     toStarve = toBurn - availableFood;
     toBurn = availableFood;
-  }
-
-  // @todo: fix gene anomaly
-  // avoid negative values so we don't regenerate stored food and decrease energy
-  // avoid 0 so cells dont get stuck forever
-  if( toBurn < 1 ){
-    toBurn = 1;
   }
   
   // turn food or tissue to energy ( 1 to 1 for now )
@@ -150,13 +137,7 @@ Cell.prototype.heal = function()
   // amount of health per unit of energy modified by regeneration gene
   var healthAmount = 10;
   if( this.genes.regeneration ){
-    healthAmount += this.genes.regeneration;
-  }
-  
-  // @todo: fix gene anomaly
-  // avoid negative values so cells dont kill themselves
-  if( healthAmount < 0 ){
-    healthAmount = 0;
+    healthAmount = this.genes.regeneration;
   }
   
   // use energy to heal until energy runs out or at full health
@@ -172,7 +153,6 @@ Cell.prototype.heal = function()
 Cell.prototype.grow = function()
 {
   // growth stops after reaching maturity
-  // @todo: wont this cause anomalies?
   if( this.growth >= this.maturity ){
     return false;
   }
@@ -181,18 +161,12 @@ Cell.prototype.grow = function()
   
   // metabolism gene modifies growth rate
   if( this.genes.metabolism ){
-    toGrow += this.genes.metabolism;
+    toGrow = this.genes.metabolism;
   }
   
   // cant grow more than theres energy available
   if( toGrow > this.energy ){
     toGrow = this.energy;
-  }
-
-  // @todo: fix gene anomaly
-  // avoid negative values so cells dont degenerate
-  if( toGrow < 1 ){
-    toGrow = 1;
   }
   
   // grow at the expense of energy
@@ -204,17 +178,14 @@ Cell.prototype.grow = function()
 // check conditions and reproduce if possible
 Cell.prototype.reproduce = function()
 {
-  //var foodCost   = 4;
-  var energyCost = 5;
   // @todo: gene may affect cost and efficiency of reproduction
-  var foodAvailable   = true;//this.food >= foodCost;
+  var energyCost = 5;
   var energyAvailable = this.energy >= energyCost;
 
   // check division conditions
-  if( this.growth >= this.maturity && this.health > 50 && foodAvailable && energyAvailable ){
+  if( this.growth >= this.maturity && this.health > 50 && energyAvailable ){
     
     // pay the price for reproduction
-    //this.food   -= foodCost;
     this.energy -= energyCost;
     
     // divide
@@ -229,7 +200,7 @@ Cell.prototype.divideCell = function()
   var heritageA = {
     parentId   : this.id,
     generation : this.generation + 1,
-    species    : this.species,
+    //species    : this.species,
     food       : Math.floor( this.food / 2 ),
     growth     : Math.floor( this.growth / 2 )
   },
@@ -255,15 +226,9 @@ Cell.prototype.starve = function( a_amount )
   var toStarve = a_amount ? a_amount : 0,
   starveDamage = 10;
   
-  // @todo: must avoid cases when high resilience causes immortal cells LOL :D
-  // resilience gene lowers starve damage
+  // resilience gene modifies starve damage
   if( this.genes.resilience ){
-    starveDamage -= this.genes.resilience;
-  }
-
-  // @todo: fix gene anomaly
-  if( starveDamage < 1 ){
-    starveDamage = 1;
+    starveDamage = this.genes.resilience;
   }
   
   this.health -= toStarve * starveDamage;
