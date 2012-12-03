@@ -73,7 +73,7 @@ Cell.prototype.live = function()
   if( this.health > 0 ){
     this.age += 1;
   } else {
-    this.die( /*'cell '+this.id+' died at age '+this.age*/ );
+    this.die();
   }
 };
 
@@ -92,7 +92,7 @@ Cell.prototype.feed = function( a_conditions )
   }
   
   // some simple way to make larger cells aquire more food from the environment
-  biteSize += Math.floor( this.growth / 5 );
+  biteSize *= Math.ceil( this.growth / 5 );
 
   // bite cant be larger than food available
   if( biteSize > a_conditions.food ){
@@ -112,6 +112,7 @@ Cell.prototype.digest = function()
   toBurn   = 1,
   toStarve = 0;
   
+  // metabolism gene alters digestion rate
   if( this.genes.metabolism ){
     toBurn = this.genes.metabolism;
   }
@@ -216,7 +217,7 @@ Cell.prototype.divideCell = function()
 
   // save a reference to children and kill cell
   this.children = [ daughterA.id, daughterB.id ];
-  this.die( /*'cell '+this.id+' divided into cells '+daughterA.id+' and '+daughterB.id*/ );
+  this.die();
 };
 
 // STARVE
@@ -231,6 +232,7 @@ Cell.prototype.starve = function( a_amount )
     starveDamage = this.genes.resilience;
   }
   
+  // reduce health
   this.health -= toStarve * starveDamage;
 };
 

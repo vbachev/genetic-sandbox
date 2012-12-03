@@ -45,15 +45,7 @@ var cellManager =
       }
     }
     
-    return false;
-  },
-  
-  generateGeneSet : function()
-  { 
-    var geneSet = {};
-    // once for now
-    this.addRandomGene( geneSet );
-    return geneSet;
+    return {};
   },
   
   // defines all possible genes
@@ -89,6 +81,15 @@ var cellManager =
       active : true
     }
   ],
+  
+  // returns a random set of genes
+  generateGeneSet : function()
+  { 
+    var geneSet = {};
+    // once for now
+    this.addRandomGene( geneSet );
+    return geneSet;
+  },
 
   getGeneByName : function( a_name )
   {
@@ -121,20 +122,23 @@ var cellManager =
     }
   },
   
+  // receives a set of genes, loops through them and modifies their values slightly
   mutateGenes : function( a_genes )
   {
     var i, 
     gene, 
+    modifier,
     newGenes = {};
     
     // loop through genes and alter them slightly
     for( i in a_genes ){
       gene = a_genes[i];
       modifier = 1+(Math.round(Math.random())*2-1)/10; // either 1.1 or 0.9
-      gene = gene*modifier;
+      gene = gene*modifier; // modify value by +/- 10%
       newGenes[ i ] = gene;
     }
     
+    // add a new one
     this.addRandomGene( newGenes );
     
     return newGenes;

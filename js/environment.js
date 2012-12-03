@@ -13,7 +13,7 @@ var environment =
     heat : 15  // temperature in degrees by Celsium
   },
   
-  // describes the environment - just a prototype
+  // describes the environment to other objects
   getConditions : function()
   {
     return this.conditions;

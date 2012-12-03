@@ -38,14 +38,15 @@ var world =
     world.beat();
 
     if( world.async ){
-      // settimeout instead of setinterval so very short intervals are handled better 
+      // we use settimeout instead of setinterval so very short intervals are handled better 
       // + the ability to change beatDelay in realtime
-      // clearTimeout( world.heartbeatHandle );
+      clearTimeout( world.heartbeatHandle );
       world.heartbeatHandle = setTimeout(
         world.heartbeat,
         world.speed
       );
     } else {
+      // start next beat imediately
       world.heartbeat();
     }
   },
@@ -75,6 +76,7 @@ var world =
     return this.idPointer;
   },
 
+  // unsubscribe
   unregister : function( a_id )
   {
     var i, 

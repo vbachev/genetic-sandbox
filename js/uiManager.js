@@ -13,26 +13,24 @@ var uiManager =
     this.setProfileFields();
   },
   
+  // starts or stops the world heartbeat
   pause : function()
   {
-    var playStart,
-    playDuration;
-
-    console.time('game');
-
-    if( world.brake ){
+    if( world.brake )
+    {
       // start game
       $('#startButton').addClass('active');
       this.stats.duration = new Date();
 
       // use a delay to alow DOM manipulations to happen before the game starts
       setTimeout( world.start, 100 );
-    } else {
+    } 
+    else 
+    {
       // stop game
       this.stats.duration = new Date() - this.stats.duration;
       world.stop();
       $('#startButton').removeClass('active');
-      console.timeEnd('game');
     }
   },
   
@@ -59,16 +57,28 @@ var uiManager =
     'food'        : 'Food',
     'health'      : 'Health'
   },
-
+  
+  // stop imediate execution when these are reached
+  populationLimit : 10000,
+  stepsLimit      : 5000,
+  
   // at each beat go through all cells and draw them
   update : function()
   {
-    if( this.stats.elapsed < 5000 && cellManager.registry.length < 10000 ){
-      this.stats.elapsed++;
-      return false;
+    var i, environmentStats;
+    
+    this.stats.elapsed++;
+    
+    if( !world.async ){
+      // run cycles without drawing to increase speed and avoid needles DOM manipulation
+      if( this.stats.elapsed < this.stepsLimit && cellManager.registry.length < this.populationLimit ){
+        return false;
+      }
+    
+      // stop heartbeat after limits are reached and draw cells
+      this.pause();
     }
-    this.pause();
-
+  
     // represent cells state
     this.drawTree();
 
@@ -79,11 +89,11 @@ var uiManager =
       this.stats.environment += i+': '+environmentStats[i]+'<br/>'
     }
 
-    // var message = 'step: '+this.stats.elapsed+'<br/>cells: '+this.stats.cells+'<br/>food: '+this.stats.food;
     $('.message-box .step').text( this.stats.elapsed );
     $('.message-box .cells').text( this.stats.cells );
     $('.message-box .environment').html( this.stats.environment );
 
+    // update profile for watched cell
     if( this.watched ){
       uiManager.populateProfile( cellManager.getCell( this.watched ));
     }
@@ -94,26 +104,25 @@ var uiManager =
   {
     var cells = cellManager.registry,
     i, cell, node,
-    toAppend = '',
-    modifier = 5,
-    color;
+    modifier = 5;
 
-    //$('.newborn').removeClass('newborn');
+    $('.newborn').removeClass('newborn');
     this.stats.cells = 0;
 
     for( i in cells ){
       cell = cells[i];
       node = $('#cell'+cell.id);
       
-      if( cell.alive ){
+      // in normal conditions draw live cells and skip dead ones
+      // when cycles are executed imediately drawing happens only once at the end so no cells should be skipped
+      if( cell.alive || !world.async ){
         // use the cell growth value as an indicator
         modifier = cell.growth;
-        //color = (cellManager.getSpeciesById( cell.species )).color;
 
         this.stats.cells++;
       } else {
-        //node.addClass('dead');
-        //continue;
+        node.addClass('dead');
+        continue;
       }
   
       // edit an existing node or create a new one
@@ -121,17 +130,13 @@ var uiManager =
       if( node.length ){
         node.css('font-size', modifier+'px');
       } else {
-        //toAppend += '<li id="cell'+cell.id+'" style="font-size:'+modifier+'px"></li>';
         
-        $('#cell'+cell.parentId).append('<div id="cell'+cell.id+'" title="'+cell.id+'" class="'+(cell.alive ? '' : 'dead')+'" style="font-size:'+modifier+'px;"></div>');
+        $('#cell'+cell.parentId).append('<div id="cell'+cell.id+'" title="'+cell.id+'" class="newborn '+(cell.alive ? '' : 'dead')+'" style="font-size:'+modifier+'px;"></div>');
       }
     }
-
-    // add new items to list
-    //this.cellsList.append( toAppend );
-    //$('.dead').remove();
   },
   
+  // bind click and delegate function to receive click on cells and display their profiles
   bindCellClick : function()
   {
     var target, 
@@ -155,6 +160,7 @@ var uiManager =
     });
   },
   
+  // initially creates html profile fields at page load
   setProfileFields : function()
   {
     var dummyCell = new Cell(),
@@ -170,6 +176,7 @@ var uiManager =
     this.watched = 1;
   },
 
+  // displays cell profile information from cell object
   populateProfile : function( a_cell )
   {
     var i, 
