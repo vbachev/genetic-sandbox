@@ -36,10 +36,10 @@ var uiManager =
   
   // what fields to show in controls
   stats : {
-    duration : 0,
-    cells : 0,
-    elapsed : 0,
-    food : 0
+    duration  : 0,
+    cells     : 0,
+    elapsed   : 0,
+    food      : 0
   },
 
   // what fields to show in profile
@@ -164,7 +164,8 @@ var uiManager =
   setProfileFields : function()
   {
     var dummyCell = new Cell(),
-    profileHtml = '<ul>';
+    profileHtml = '<ul>', 
+    i;
 
     for( i in this.cellStats ){
       profileHtml += '<li class="'+i+'"><label>'+this.cellStats[i]+':</label> <span>---</span></li>'
