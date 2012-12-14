@@ -10,7 +10,6 @@ var world =
   // if false consecutive beats will execute as soon as the previous one is finished
   async : false, 
 
-  idPointer : 0,
   subscribers : [], // holds all subscribers
 
   // starts heartbeat
@@ -20,7 +19,7 @@ var world =
     world.heartbeat();
   },
 
-  // stops hartbeat
+  // stops hartbeat. brake flag will stop the next beat execution
   stop : function()
   {
     this.brake = true;
@@ -46,7 +45,7 @@ var world =
         world.speed
       );
     } else {
-      // start next beat imediately
+      // start next beat immediately
       world.heartbeat();
     }
   },
@@ -71,9 +70,7 @@ var world =
   register : function( a_object )
   {
     this.subscribers.push( a_object );
-
-    this.idPointer++;
-    return this.idPointer;
+    return _.uniqueId();
   },
 
   // unsubscribe

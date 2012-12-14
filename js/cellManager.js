@@ -19,7 +19,7 @@ var cellManager =
   
   update : function()
   {
-    return false;
+    return;
   },
   
   // return a cell by id

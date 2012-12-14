@@ -27,8 +27,8 @@ var uiManager =
     } 
     else 
     {
-      // stop game
-      this.stats.duration = new Date() - this.stats.duration;
+      // stop this
+      game.stats.duration = new Date() - this.stats.duration;
       world.stop();
       $('#startButton').removeClass('active');
     }
