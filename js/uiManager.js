@@ -27,8 +27,8 @@ var uiManager =
     } 
     else 
     {
-      // stop this
-      game.stats.duration = new Date() - this.stats.duration;
+      // stop game
+      this.stats.duration = new Date() - this.stats.duration;
       world.stop();
       $('#startButton').removeClass('active');
     }
@@ -86,7 +86,7 @@ var uiManager =
     this.stats.environment = '';
     environmentStats = environment.getConditions();
     for( i in environmentStats ){
-      this.stats.environment += i+': '+environmentStats[i]+'<br/>'
+      this.stats.environment += i+': '+environmentStats[i]+'<br/>';
     }
 
     $('.message-box .step').text( this.stats.elapsed );
@@ -149,7 +149,7 @@ var uiManager =
 
       target = $(e.target);
       if( target.is('div') ){
-        cellId = parseInt( target.attr('id').split('cell')[1] );
+        cellId = parseInt( target.attr('id').split('cell')[1], 10 );
         cell = cellManager.getCell( cellId );
         uiManager.populateProfile( cell );
         uiManager.watched = cellId+1;
@@ -168,9 +168,9 @@ var uiManager =
     i;
 
     for( i in this.cellStats ){
-      profileHtml += '<li class="'+i+'"><label>'+this.cellStats[i]+':</label> <span>---</span></li>'
+      profileHtml += '<li class="'+i+'"><label>'+this.cellStats[i]+':</label> <span>---</span></li>';
     }
-    profileHtml += '<li class="genes"><label>Genes:</label> <span>---</span></li>'
+    profileHtml += '<li class="genes"><label>Genes:</label> <span>---</span></li>';
 
     $('.profile .stats').html( profileHtml+'</ul>' );
     dummyCell.die();

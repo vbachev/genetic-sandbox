@@ -2,13 +2,13 @@
 // implements simple pub/sub observer pattern
 var world = 
 {
-  speed : 1000,  // delay in ms between beats
+  speed : 300,  // delay in ms between beats
   brake : true,     // will stop heartbeat at next beat
   heartbeatHandle : '', // holds reference to the timeout function
   
   // if true heartbeat will use speed to delay execution; 
   // if false consecutive beats will execute as soon as the previous one is finished
-  async : false, 
+  async : true, 
 
   subscribers : [], // holds all subscribers
 

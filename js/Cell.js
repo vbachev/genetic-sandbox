@@ -28,7 +28,7 @@ function Cell ( a_config )
   
   // at what growth is it capable of reproducing
   this.maturity = this.genes.maturity ? this.genes.maturity : 10;
-};
+}
 
 // UPDATE
 // receive world beat event to update cell state
